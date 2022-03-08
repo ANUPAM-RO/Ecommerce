@@ -21,26 +21,31 @@ const SingleProducts = ({ pod }) => {
             ) : (
               <div>5 days delivery</div>
             )}
-            <Reating rating={pod.reating} />
+            <Reating rating={pod.rating} />
           </Card.Subtitle>
 
           {cart.some((p) => p.id === pod.id) ? (
             <Button
               onClick={() => {
                 dispatch({
-                  type: 'REMOVE_FROM_CART',
+                  type: "REMOVE_FROM_CART",
                   payload: pod,
-                })
+                });
               }}
-              variant="danger">Remove from cart</Button>
+              variant="danger"
+            >
+              Remove from cart
+            </Button>
           ) : (
-              <Button onClick={() => {
+            <Button
+              onClick={() => {
                 dispatch({
-                  type: 'ADD_TO_CART',
+                  type: "ADD_TO_CART",
                   payload: pod,
-                })
+                });
               }}
-                disabled={!pod.inStock}>
+              disabled={!pod.inStock}
+            >
               {!pod.inStock ? "out of Stock" : "Add to Cart"}
             </Button>
           )}

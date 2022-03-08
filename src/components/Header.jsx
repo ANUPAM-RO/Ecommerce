@@ -7,16 +7,17 @@ import {
   Dropdown,
   Nav,
   Badge,
+  Button
 } from "react-bootstrap";
 import {Link} from "react-router-dom"
 import { CartState } from '../context/Context';
 import { AiFillDelete } from 'react-icons/ai';
 const Header = () => {
 
-
   const {
     state: { cart },
-    dispatch
+    dispatch,
+    productDispatch
 } = CartState()
 
   return (
@@ -30,13 +31,19 @@ const Header = () => {
             style={{ width: 500 }}
             placeholder="Search a product"
             className="m-auto"
+            onChange={(e) => {
+              productDispatch({
+                type: "FILTER_BY_SEARCH",
+                payload: e.target.value,
+              })
+            }}
           />
         </Navbar.Text>
         <Nav>
           <Dropdown alignRight>
             <Dropdown.Toggle variant="success">
               <FaShoppingCart color="white" fontSize="25px" />
-              <Badge>{4}</Badge>
+              <Badge>{cart.length}</Badge>
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ minWidth: 370 }}>
 
@@ -62,6 +69,10 @@ const Header = () => {
                         />
                       </span>
                     ))}
+                  <Link to="/cart">
+                  <Button style={{ width: "95%" , margin: "0 10px"}}>Go to Cart</Button>
+                  </Link>
+
                     </>
                     ) : (<span style={{ padding: 10 }}>Cart is Empty!</span>)
                 }
